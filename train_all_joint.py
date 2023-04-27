@@ -40,7 +40,11 @@ class EmotionClassifier(pl.LightningModule):
         for k in list(state_dict.keys()):
             if "encoder" in k:
                 state_dict[k.replace("encoder.", "")] = state_dict[k]
+            if "backbone" in k:
+                state_dict[k.replace("backbone.", "")] = state_dict[k]
             del state_dict[k]
+
+
         self.encoder.load_state_dict(state_dict, strict=False)
 
     def forward(self, x):
