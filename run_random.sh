@@ -1,4 +1,4 @@
-python train.py \
+python train_random.py \
   --max_epochs 50 \
   --batch_size 128 \
   --lr 0.1 \
