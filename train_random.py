@@ -79,7 +79,8 @@ def parse_args():
     parser.add_argument("--max_epochs", type=int, default=100, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=128, help="Batch size for training and testing")
     parser.add_argument("--lr", type=float, default=1e-3, help="Learning rate")
-    parser.add_argument("--weight_decay", type=float, default=1e-4, help="Weight decay for the optimizer")
+    # parser.add_argument("--weight_decay", type=float, default=1e-4, help="Weight decay for the optimizer")
+    parser.add_argument("--weight_decay", type=float, default=0., help="Weight decay for the optimizer")
     parser.add_argument("--data_path", type=str, required=True, help="Path to the dataset")
     parser.add_argument("--ckpt_path", type=str, required=True, help="Path to the ckpt")
 
