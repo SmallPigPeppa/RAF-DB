@@ -8,6 +8,7 @@ from torchvision import datasets, transforms
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import WandbLogger
 from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
+from pytorch_lightning.callbacks import ModelCheckpoint, LearningRateMonitor
 from models.resnet18_cifar_reparam import resnet18
 
 
@@ -113,6 +114,7 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, num_workers=4)
     test_loader = DataLoader(test_data, batch_size=args.batch_size, num_workers=4)
 
+    lr_monitor = LearningRateMonitor(logging_interval="epoch")
     wandb_logger = WandbLogger(name=args.run_name, project=args.project, entity=args.entity, offline=args.offline)
-    trainer = pl.Trainer(max_epochs=args.max_epochs, gpus=1, logger=wandb_logger)
+    trainer = pl.Trainer(max_epochs=args.max_epochs, gpus=1, logger=wandb_logger,callbacks=[lr_monitor])
     trainer.fit(model, train_loader, test_loader)

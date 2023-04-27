@@ -1,5 +1,5 @@
 python train.py \
-  --max_epochs 30 \
+  --max_epochs 50 \
   --batch_size 128 \
   --lr 0.1 \
   --data_path /mnt/mmtech01/usr/liuwenzhuo/torch_ds/RAF-DB \
