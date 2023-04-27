@@ -139,4 +139,5 @@ if __name__ == '__main__':
                                    offline=args.offline)
         trainer = pl.Trainer(max_epochs=args.max_epochs, gpus=1, logger=wandb_logger, callbacks=[lr_monitor])
         trainer.fit(model, train_loader, test_loader)
-        wandb_logger.finish()
+        import wandb
+        wandb.finish()
