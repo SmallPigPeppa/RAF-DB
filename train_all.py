@@ -16,7 +16,7 @@ import glob
 
 def get_all_task_checkpoints(ckpt_dir):
     task_checkpoints = {}
-    for task_ckpt in glob.glob(os.path.join(ckpt_dir, "*/*/*.ckpt")):
+    for task_ckpt in glob.glob(os.path.join(ckpt_dir, "*/*.ckpt")):
         task_id = re.search(r'task(\d+)', os.path.basename(task_ckpt)).group(1)
         task_checkpoints[task_id] = task_ckpt
     return task_checkpoints
