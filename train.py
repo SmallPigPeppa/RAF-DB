@@ -53,7 +53,7 @@ class EmotionClassifier(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.SGD(
             self.parameters(),
-            lr=self.args.learning_rate,
+            lr=self.args.lr,
             weight_decay=self.args.weight_decay,
             momentum=0.9
         )
@@ -61,8 +61,8 @@ class EmotionClassifier(pl.LightningModule):
             optimizer,
             warmup_epochs=5,
             max_epochs=self.args.max_epochs,
-            warmup_start_lr=0.01 * self.args.learning_rate,
-            eta_min=0.01 * self.args.learning_rate,
+            warmup_start_lr=0.01 * self.args.lr,
+            eta_min=0.01 * self.args.lr,
         )
         return [optimizer], [scheduler]
 
