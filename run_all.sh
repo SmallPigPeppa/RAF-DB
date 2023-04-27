@@ -1,5 +1,5 @@
 python train_all.py \
-  --max_epochs 1 \
+  --max_epochs 50 \
   --batch_size 128 \
   --lr 0.1 \
   --run_name simclr \
