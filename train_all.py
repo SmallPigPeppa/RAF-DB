@@ -14,12 +14,14 @@ import re
 import glob
 
 
+
 def get_all_task_checkpoints(ckpt_dir):
     task_checkpoints = {}
     for task_ckpt in glob.glob(os.path.join(ckpt_dir, "*/*.ckpt")):
-        task_id = re.search(r'task(\d+)', os.path.basename(task_ckpt)).group(1)
+        task_id = int(re.search(r'task(\d+)', os.path.basename(task_ckpt)).group(1))
         task_checkpoints[task_id] = task_ckpt
-    return task_checkpoints
+    sorted_task_checkpoints = dict(sorted(task_checkpoints.items()))
+    return sorted_task_checkpoints
 
 class EmotionClassifier(pl.LightningModule):
     def __init__(self, args):
@@ -137,3 +139,4 @@ if __name__ == '__main__':
                                    offline=args.offline)
         trainer = pl.Trainer(max_epochs=args.max_epochs, gpus=1, logger=wandb_logger, callbacks=[lr_monitor])
         trainer.fit(model, train_loader, test_loader)
+        wandb_logger.finish()
