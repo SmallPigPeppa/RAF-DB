@@ -18,7 +18,7 @@ class EmotionClassifier(pl.LightningModule):
         self.args = args
         self.encoder = resnet18()
         self.encoder.fc = nn.Identity()
-        self.fc = nn.Linear(512, 7)
+        self.fc = nn.Linear(512, 100)
         self.loss = nn.CrossEntropyLoss()
         self.metrics_acc = torchmetrics.Accuracy()
         self.load_weight(self.args.ckpt_path)
@@ -26,6 +26,10 @@ class EmotionClassifier(pl.LightningModule):
     def load_weight(self, ckpt_path):
         print(f"Loading previous task checkpoint {ckpt_path}...")
         state_dict = torch.load(ckpt_path, map_location="cpu")["state_dict"]
+        for k in list(state_dict.keys()):
+            if "encoder" in k:
+                state_dict[k.replace("encoder.", "")] = state_dict[k]
+            del state_dict[k]
         self.encoder.load_state_dict(state_dict, strict=False)
 
     def forward(self, x):
