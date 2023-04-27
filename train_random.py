@@ -88,6 +88,7 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
+    pl.seed_everything(5)
     train_mean = [0.57520399, 0.44951904, 0.40121641]
     train_std = [0.20838688, 0.19108407, 0.18262798]
     test_mean = [0.57697346, 0.44934572, 0.40011644]
