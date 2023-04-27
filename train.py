@@ -16,6 +16,7 @@ class EmotionClassifier(pl.LightningModule):
         super().__init__()
         self.args = args
         self.encoder = resnet18()
+        self.encoder.fc = nn.Identity()
         self.fc = nn.Linear(512, 7)
         self.loss = nn.CrossEntropyLoss()
         self.metrics_acc = torchmetrics.Accuracy()
